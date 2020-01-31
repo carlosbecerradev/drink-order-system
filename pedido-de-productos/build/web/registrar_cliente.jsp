@@ -8,7 +8,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Don Licor - Registrarse</title>
+        <title>Beeru - Registrarse</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
               crossorigin="anonymous">
         <script src="https://kit.fontawesome.com/9dca648001.js" crossorigin="anonymous"></script>
@@ -49,7 +49,7 @@
 
                     </div>
 
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <div class="dropdown-menu  dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                         <%
                             if (usr != null) { %>
                         <a class="dropdown-item " href="ver_pedidos.jsp">Ver Pedidos</a>
@@ -57,8 +57,8 @@
                             <button class="dropdown-item">Cerrar sesión</button>
                         </form>
                         <% } else { %>
-                        <a class='dropdown-item ' href='registrar_cliente.jsp'>Registrate</a>
-                        <a class='dropdown-item active' href='login.jsp'>Logueate</a>
+                        <a class='dropdown-item active ' href='registrar_cliente.jsp'>Registrate</a>
+                        <a class='dropdown-item' href='login.jsp'>Logueate</a>
                         <% }%>
 
                     </div>
@@ -89,7 +89,55 @@
                 </div>
             </form> 
         </div>
-        
+
+        <div class="container mt-5 py-3">
+            <div class="row justify-content-center">
+                <div class="col-12 col-sm-6 col-md-4">
+                    <div class="d-flex justify-content-center align-items-center flex-column mb-4 mb-md-0">
+                        <i class="fas fa-truck mb-3 text-success" style="font-size: 2.5rem;"></i>
+                        <p class="font-weight-bold">Envió y Retorno</p>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-6 col-md-4">
+                    <div class="d-flex justify-content-center align-items-center flex-column mb-4 mb-md-0">
+                        <i class="fas fa-lock mb-3 text-success" style="font-size: 2.5rem;"></i>
+                        <p class="font-weight-bold">Pagos Segutos</p>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4">
+                    <div class="d-flex justify-content-center align-items-center flex-column mb-4 mb-md-0">
+                        <i class="fas fa-concierge-bell mb-3 text-success" style="font-size: 2.5rem;"></i>
+                        <p class="font-weight-bold">Servicio al Cliente</p>
+                    </div>
+                </div>
+            </div>
+        </div>                        
+
+        <footer class="bg-success text-light mt-5">
+            <div class="container">
+                <div class="row align-items-center text-center">
+                    <div class="col-12 col-sm-6 col-md-4">
+                        <div class="my-3">
+                            <p class="mb-1">500 Surco - San Roque</p>
+                            <p class="mb-1">Calle Mallbor CB 40023</p>
+                            <br>
+                            <p class="mb-1">Email: hello@beeru.com</p>
+                            <p class="mb-1">Celular: 920 523 578</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-4 offset-md-4">
+                        <div class="my-3">
+                            <p class="mb-1">Recibe nuestros novedades</p>
+                            <form>
+                                <input type="text" class="form-control" placeholder="tucorreo@gmail.com" />
+                                <button class="btn btn-dark mt-2">Subscribirse</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
                 integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>

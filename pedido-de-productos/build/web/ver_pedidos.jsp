@@ -12,7 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Don Licor - Tus Pedidos</title>
+        <title>Beeru - Tus Pedidos</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
               crossorigin="anonymous">
         <script src="https://kit.fontawesome.com/9dca648001.js" crossorigin="anonymous"></script>
@@ -52,16 +52,16 @@
                             } %>
                     </div>
 
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                         <%
                             if (usr != null) { %>
-                        <a class="dropdown-item " href="ver_pedidos.jsp">Ver Pedidos</a>
+                        <a class="dropdown-item active" href="ver_pedidos.jsp">Ver Pedidos</a>
                         <form method="post" action="cerrarsesion">
                             <button class="dropdown-item">Cerrar sesión</button>
                         </form>
                         <% } else { %>
                         <a class='dropdown-item ' href='registrar_cliente.jsp'>Registrate</a>
-                        <a class='dropdown-item active' href='login.jsp'>Logueate</a>
+                        <a class='dropdown-item' href='login.jsp'>Logueate</a>
                         <% }%>
 
                     </div>
@@ -86,32 +86,58 @@
                         <div class="card-header bg-dark text-white border-dark">Pedido el <%= pedido.getFecha()%></div>
                         <div class="card-body text-secondary">
                             <h5 class="card-title text-success">Detalle del Pedido</h5>
-                            <% 
+                            <%
                                 DetallePedido detallepedido = new DetallePedido();
                                 LinkedList<DetallePedido> ListaDetallePedido = detallepedido.listaDetallePedidosPorIdPedido(pedido.getId_pedido());
-                                if(ListaDetallePedido.size() > 0){
-                                    for(DetallePedido dt: ListaDetallePedido){   
-                                    Producto prod = new Producto();
-                                    Producto producto = prod.buscarProductoById(dt.getId_producto());
+                                if (ListaDetallePedido.size() > 0) {
+                                    for (DetallePedido dt : ListaDetallePedido) {
+                                        Producto prod = new Producto();
+                                        Producto producto = prod.buscarProductoById(dt.getId_producto());
                             %>
                             <div class="alert alert-light">
-                                <p class="card-text mb-0 text-dark"><%=  producto.getNombre() %></p>
+                                <p class="card-text mb-0 text-dark"><%=  producto.getNombre()%></p>
                                 <ul class="m-0">
-                                    <li>Precio: S/ <%=  producto.getPrecio() %></li>
-                                    <li>Cantidad: <%=  dt.getCantidad() %></li>
-                                    <li>Importe: S/ <%=  dt.getCantidad()*producto.getPrecio() %></li>
+                                    <li>Precio: S/ <%=  producto.getPrecio()%></li>
+                                    <li>Cantidad: <%=  dt.getCantidad()%></li>
+                                    <li>Importe: S/ <%=  dt.getCantidad() * producto.getPrecio()%></li>
                                 </ul>
                             </div>
-                            <% }} %>
+                            <% }
+                                }%>
                         </div>
                         <div class="card-footer bg-transparent">
                             <span>Monto Final:</span> <span class="ml-4  text-success" style="font-size: 1.5rem;">S/ <%= pedido.getMonto_final()%></span>
                         </div>
                     </div>
                 </div>     
-                <% }}%>
+                <% }
+                    }%>
             </div>
-        </div>       
+        </div>     
+        <footer class="bg-success text-light mt-5">
+            <div class="container">
+                <div class="row align-items-center text-center">
+                    <div class="col-12 col-sm-6 col-md-4">
+                        <div class="my-3">
+                            <p class="mb-1">500 Surco - San Roque</p>
+                            <p class="mb-1">Calle Mallbor CB 40023</p>
+                            <br>
+                            <p class="mb-1">Email: hello@beeru.com</p>
+                            <p class="mb-1">Celular: 920 523 578</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-4 offset-md-4">
+                        <div class="my-3">
+                            <p class="mb-1">Recibe nuestros novedades</p>
+                            <form>
+                                <input type="text" class="form-control" placeholder="tucorreo@gmail.com" />
+                                <button class="btn btn-dark mt-2">Subscribirse</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
         <% } else { %>    
         <div class="container mt-5">
             <div class="alert alert-warning" role="alert">

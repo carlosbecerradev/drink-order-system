@@ -1,0 +1,7 @@
+Instalación:
+------------
+1- Abrir el proyecto en Netbeans IDE 8.2.
+2- Descargar el jar para la conexion con la base de datos MySQL. link: http://www.java2s.com/Code/Jar/m/Downloadmysqlconnectorjava515binjar.htm
+3- Agregar el jar al proyecto.
+4- Ejecutar el Script "daw-mysql-script.sql" en MySQL WorkBench o su consola.
+5- Por último, ejecutar el proyecto web.

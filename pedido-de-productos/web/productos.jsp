@@ -10,7 +10,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Don Licor - Productos</title>
+        <title>Beeru - Productos</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
               crossorigin="anonymous">
         <script src="https://kit.fontawesome.com/9dca648001.js" crossorigin="anonymous"></script>
@@ -30,7 +30,7 @@
                     <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
                         <ul class="navbar-nav text-center">
                             <li class="nav-item  mx-4">
-                                <a class="nav-link" href="productos.jsp">Productos</a>
+                                <a class="nav-link active" href="productos.jsp">Productos</a>
                             </li>
                             <li class="nav-item mx-4">
                                 <a class="nav-link " href="carrito.jsp">Carrito</a>
@@ -52,7 +52,7 @@
 
                     </div>
 
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <div class="dropdown-menu  dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                         <%
                             if (usr != null) { %>
                         <a class="dropdown-item " href="ver_pedidos.jsp">Ver Pedidos</a>
@@ -61,7 +61,7 @@
                         </form>
                         <% } else { %>
                         <a class='dropdown-item ' href='registrar_cliente.jsp'>Registrate</a>
-                        <a class='dropdown-item active' href='login.jsp'>Logueate</a>
+                        <a class='dropdown-item' href='login.jsp'>Logueate</a>
                         <% }%>
 
                     </div>
@@ -73,7 +73,7 @@
         <div class="container my-5">
             <h1 class="mb-2">Productos destacados</h1>
             <div class="row justify-content-center">   
-                
+
                 <%
                     Producto p = new Producto();
                     LinkedList<Producto> ListaUsuario = p.listarProductos();
@@ -101,7 +101,31 @@
                 </div>
                 <% }%>
             </div>
-        </div>     
+        </div>    
+        <footer class="bg-success text-light mt-5">
+            <div class="container">
+                <div class="row align-items-center text-center">
+                    <div class="col-12 col-sm-6 col-md-4">
+                        <div class="my-3">
+                            <p class="mb-1">500 Surco - San Roque</p>
+                            <p class="mb-1">Calle Mallbor CB 40023</p>
+                            <br>
+                            <p class="mb-1">Email: hello@beeru.com</p>
+                            <p class="mb-1">Celular: 920 523 578</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-4 offset-md-4">
+                        <div class="my-3">
+                            <p class="mb-1">Recibe nuestros novedades</p>
+                            <form>
+                                <input type="text" class="form-control" placeholder="tucorreo@gmail.com" />
+                                <button class="btn btn-dark mt-2">Subscribirse</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
         <% } else { %>    
         <div class="container mt-5">
             <div class="alert alert-warning" role="alert">
