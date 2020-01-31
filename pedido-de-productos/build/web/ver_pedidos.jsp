@@ -82,33 +82,42 @@
                         for (Pedido pedido : p.listaPedidosPorIdUsuario(usuario.getId_usuario())) {
                 %>  
                 <div class="col-12 col-sm-6 col-lg-4">
-                    <div class="card border-dark mb-3 w-100">
-                        <div class="card-header bg-dark text-white border-dark">Pedido el <%= pedido.getFecha()%></div>
-                        <div class="card-body text-secondary">
-                            <h5 class="card-title text-success">Detalle del Pedido</h5>
-                            <%
-                                DetallePedido detallepedido = new DetallePedido();
-                                LinkedList<DetallePedido> ListaDetallePedido = detallepedido.listaDetallePedidosPorIdPedido(pedido.getId_pedido());
-                                if (ListaDetallePedido.size() > 0) {
-                                    for (DetallePedido dt : ListaDetallePedido) {
-                                        Producto prod = new Producto();
-                                        Producto producto = prod.buscarProductoById(dt.getId_producto());
-                            %>
-                            <div class="alert alert-light">
-                                <p class="card-text mb-0 text-dark"><%=  producto.getNombre()%></p>
-                                <ul class="m-0">
-                                    <li>Precio: S/ <%=  producto.getPrecio()%></li>
-                                    <li>Cantidad: <%=  dt.getCantidad()%></li>
-                                    <li>Importe: S/ <%=  dt.getCantidad() * producto.getPrecio()%></li>
-                                </ul>
-                            </div>
-                            <% }
+                    <form method="post" action="generarexcel">
+                        <div class="card border-dark mb-3 w-100">
+                            <div class="card-header bg-dark text-white border-dark">Pedido el <%= pedido.getFecha()%></div>
+                            <div class="card-body text-secondary">
+                                <h5 class="card-title text-success">Detalle del Pedido</h5>
+                                <input type="hidden" name="fecha" value="<%= pedido.getFecha()%>" />
+                                <input type="hidden" name="montofinal" value="<%= pedido.getMonto_final()%>" />
+                                <%
+                                    DetallePedido detallepedido = new DetallePedido();
+                                    LinkedList<DetallePedido> ListaDetallePedido = detallepedido.listaDetallePedidosPorIdPedido(pedido.getId_pedido());
+                                    if (ListaDetallePedido.size() > 0) {
+                                        for (DetallePedido dt : ListaDetallePedido) {
+                                            Producto prod = new Producto();
+                                            Producto producto = prod.buscarProductoById(dt.getId_producto());
+                                %>
+                                <div class="alert alert-light">
+                                    <p class="card-text mb-0 text-dark"><%=  producto.getNombre()%></p>
+                                    <ul class="m-0">
+                                        <li>Precio: S/ <%=  producto.getPrecio()%></li>
+                                        <li>Cantidad: <%=  dt.getCantidad()%></li>
+                                        <li>Importe: S/ <%=  dt.getCantidad() * producto.getPrecio()%></li>
+                                    </ul>
+                                    <input type="hidden" name="producto" value="<%=  producto.getNombre()%>" />
+                                    <input type="hidden" name="precio" value="<%=  producto.getPrecio()%>" />
+                                    <input type="hidden" name="cantidad" value="<%=  dt.getCantidad()%>" />
+                                    <input type="hidden" name="importe" value="<%=  dt.getCantidad() * producto.getPrecio()%>" />
+                                </div>
+                                <% }
                                 }%>
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <span>Monto Final:</span> <span class="ml-4  text-success" style="font-size: 1.5rem;">S/ <%= pedido.getMonto_final()%></span>
+                            </div>
+                            <button clasS="btn btn-success">Generar Excel</button>
                         </div>
-                        <div class="card-footer bg-transparent">
-                            <span>Monto Final:</span> <span class="ml-4  text-success" style="font-size: 1.5rem;">S/ <%= pedido.getMonto_final()%></span>
-                        </div>
-                    </div>
+                    </form>
                 </div>     
                 <% }
                     }%>
