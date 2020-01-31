@@ -25,28 +25,25 @@ public class RegistrarPedido extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        HttpSession sesion = request.getSession(true);        
-        ArrayList<Articulo> articulos = sesion.getAttribute("carrito") == null ? new ArrayList<>() : (ArrayList)sesion.getAttribute("carrito");
+        HttpSession sesion = request.getSession(true);      
+        /* Obtener carrito y usuario guardados en la sesion */
+        ArrayList<Articulo> articulos = (ArrayList)sesion.getAttribute("carrito");
+        Usuario usuarioLogueado = (Usuario)sesion.getAttribute("logueado");
     
-        Pedido nuevoPedido = new Pedido();
-        Collection<DetallePedido> listDetallePedido = new ArrayList<DetallePedido>();
-        Usuario usuarioLogueado;
+        /* Creando pedido */
+        Pedido nuevoPedido = new Pedido();        
+        Double monto_final = Double.parseDouble(request.getParameter("monto_final"));       
+        Integer id_nuevoPedido = nuevoPedido.agregaPedido(usuarioLogueado.getId_usuario(), new Date(), monto_final);
         
-        // nuevoPedido.setUsuario(usuarioLogueado);
-        nuevoPedido.setFecha(new Date());
-        nuevoPedido.setMonto_final(Double.MIN_NORMAL);
-        
+        /* Creando detalle del pedido*/        
         if (articulos != null) {
-            for (Articulo articulo : articulos) {
-                DetallePedido detallePedido = new DetallePedido();
-                detallePedido.setId_pedido(nuevoPedido.getId_pedido());
-                detallePedido.setId_producto(articulo.getIdProducto());
-                detallePedido.setCantidad(articulo.getCantidad());
+            DetallePedido detallePedido = new DetallePedido();
+            for(Articulo articulo : articulos) {
+                detallePedido.agregaDetallePedido(id_nuevoPedido, articulo.getIdProducto(), articulo.getCantidad());
             }
         }
         
-        sesion.setAttribute("carrito", null);
-    
+        sesion.setAttribute("carrito", null);    
         response.sendRedirect("ver_pedidos.jsp");
         
     }

@@ -1,26 +1,23 @@
-<%@page import="java.util.LinkedList"%>
 <%@page import="model.Usuario"%>
-<%@page import="model.Producto"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% HttpSession sesion = request.getSession(true);   %>
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Don Licor - Productos</title>
+        <title>Don Licor - Registrarse</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
               crossorigin="anonymous">
         <script src="https://kit.fontawesome.com/9dca648001.js" crossorigin="anonymous"></script>
     </head>
     <body>
-
         <header class="container text-center bg-white border-bottom">
             <div class=" d-flex justify-content-between align-items-center">
-                <div class="py-2 text-dark flex-grow-0" href="#" style="font-size: 1.5rem;">
-                    <a class="m-0 text-success "  href="login.jsp"><i class="fas fa-beer"></i> Beeru</a>                      
+                <div class="py-2 flex-grow-0" style="font-size: 1.5rem;">
+                    <a class="m-0 text-success "  href="login.jsp"><i class="fas fa-beer"></i> Beeru</a>             
                 </div>
                 <nav class="navbar navbar-expand-md navbar-light bg-white justify-content-center">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
@@ -68,51 +65,31 @@
                 </div>
             </div>            
         </header>
-        <!-- contenido-->
-        <%  if (sesion.getAttribute("logueado") != null) { %>
-        <div class="container my-5">
-            <h1 class="mb-2">Productos destacados</h1>
-            <div class="row justify-content-center">   
-                
-                <%
-                    Producto p = new Producto();
-                    LinkedList<Producto> ListaUsuario = p.listarProductos();
-                    for (Producto producto : ListaUsuario) {
-                %>
-                <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">   
-                    <form method="post" action="agregarcarrito" class="border m-3">
-                        <input type="hidden" value="<%= producto.getId_producto()%>" name="idProducto" />
-                        <div class="bg-dark d-flex justify-content-center" style="width: 100%;height: 200px;">
-                            <img src="https://cdn.pixabay.com/photo/2014/04/03/10/23/bottle-310313_960_720.png"
-                                 class="h-100"/>
-                        </div>
-                        <div class="text-center">
-                            <p class="my-2 px-2 font-weight-bold"><%= producto.getNombre()%></p>
-                            <p class="my-2 px-2 text-success" style="font-size: 1.8rem;">
-                                S/ <span><%= producto.getPrecio()%></span>
-                            </p>
-                            <div class="border"></div>
-                            <div class="d-flex justify-content-center align-items-center py-2">                                                       
-                                <input type="number" name="cantidad" value="0" min="0" style="width: 60px;" class="text-center mr-2 form-control" autocomplete="off" />
-                                <button class="btn btn-dark ml-2">AÑADIR</button>
-                            </div>
-                        </div>
-                    </form>
+        <div class="container  my-4">
+            <h1>Crea tu cuenta y comienza a pedir nuestros productos</h1>
+            <form class="needs-validation mt-4"  name="nuevoUsuario" method="post" action="registrarcliente">
+                <div class="form-row justify-content-between">
+                    <div class="col-md-4 mb-3">
+                        <label >Usuario</label>
+                        <input type="text" name="usuario" class="form-contol w-100">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label>Contraseña</label>
+                        <input type="password" name="password" class="form-contol w-100">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label>Celular</label>
+                        <input type="number" name="celular" class="form-contol w-100">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="h-100 w-100 d-flex justify-content-center align-items-end">
+                            <button class="btn btn-dark btn-block btn-sm">Confirmar</button>
+                        </div>                        
+                    </div>
                 </div>
-                <% }%>
-            </div>
-        </div>     
-        <% } else { %>    
-        <div class="container mt-5">
-            <div class="alert alert-warning" role="alert">
-                Necesitas tener una cuenta
-                <a class='ml-2 mr-2' href='registrar_cliente.jsp'>Registrate</a>
-                o
-                <a class='ml-2 mr-2' href='login.jsp'>Inicia sesión</a>
-            </div>
+            </form> 
         </div>
-        <% }%> 
-
+        
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
                 integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>
@@ -123,5 +100,4 @@
                 integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
     </body>
-
 </html>

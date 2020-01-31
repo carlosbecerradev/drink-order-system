@@ -1,8 +1,8 @@
 -- use test
--- drop database PedidoLicores;
-create database bd_donlicor;
+-- drop database bd_beeru;
+create database bd_beeru;
 
-use bd_donlicor;
+use bd_beeru;
 
 create table Usuario(
 	id_usuario int auto_increment primary key,
@@ -35,7 +35,7 @@ create table DetallePedido (
     constraint fk_detped_prudcto foreign key (id_producto) references Producto(id_producto)
 );
 
-use PedidoLicores;
+use bd_beeru;
 -- select * from Usuario;
 insert into Usuario(username, contrasenia, celular) values ('carlos', '123', 914423555);
 insert into Usuario(username, contrasenia, celular) values ('paul', '123', 914423255);
@@ -43,11 +43,11 @@ insert into Usuario(username, contrasenia, celular) values ('brian', '123', 9144
 insert into Usuario(username, contrasenia, celular) values ('garcia', '123', 914424445);
 -- select * from Pedido;
 -- select * from Producto;
-insert into Producto(nombre, precio, stock) values ('vodka RUSKAYA', 20.00, 100);
-insert into Producto(nombre, precio, stock) values ('ron CARTAVIO', 40.00, 100);
-insert into Producto(nombre, precio, stock) values ('whisky JOHNNIE WALKER', 50.00, 100);
-insert into Producto(nombre, precio, stock) values ('pisco SANTIAGO QUEIROLO', 80.00, 100);
-insert into Producto(nombre, precio, stock) values ('pisco PORTON', 90.00, 100);
+insert into Producto(nombre, precio, stock) values ('VODKA RUSKAYA', 20.00, 100);
+insert into Producto(nombre, precio, stock) values ('RON CARTAVIO', 40.00, 100);
+insert into Producto(nombre, precio, stock) values ('WHISKY JOHNNIE WALKER', 50.00, 100);
+insert into Producto(nombre, precio, stock) values ('PISCO SANTIAGO QUEIROLO', 80.00, 100);
+insert into Producto(nombre, precio, stock) values ('PISCO PORTON', 90.00, 100);
 -- select * from DetallePedido;
 
 

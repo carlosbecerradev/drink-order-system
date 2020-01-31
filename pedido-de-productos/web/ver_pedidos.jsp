@@ -1,3 +1,5 @@
+<%@page import="java.util.LinkedList"%>
+<%@page import="model.DetallePedido"%>
 <%@page import="model.Producto"%>
 <%@page import="model.Usuario"%>
 <%@page import="model.Pedido"%>
@@ -13,73 +15,113 @@
         <title>Don Licor - Tus Pedidos</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
               crossorigin="anonymous">
+        <script src="https://kit.fontawesome.com/9dca648001.js" crossorigin="anonymous"></script>
     </head>
     <body>
-        <header class="text-center bg-white">
-            <a class="display-4 py-2 text-dark" href="#"></a>
+        <header class="container text-center bg-white border-bottom">
+            <div class=" d-flex justify-content-between align-items-center">
+                <div class="py-2 text-dark flex-grow-0" href="#" style="font-size: 1.5rem;">
+                    <a class="m-0 text-success"  href="login.jsp"><i class="fas fa-beer"></i> Beeru</a>                       
+                </div>
+                <nav class="navbar navbar-expand-md navbar-light bg-white justify-content-center">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
+                        <ul class="navbar-nav text-center">
+                            <li class="nav-item  mx-4">
+                                <a class="nav-link" href="productos.jsp">Productos</a>
+                            </li>
+                            <li class="nav-item mx-4">
+                                <a class="nav-link " href="carrito.jsp">Carrito</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </nav>
+                <div class="dropdown  d-inline">
+                    <div class="nav-link dropdown-toggle text-success" href="#" id="navbarDropdownMenuLink" role="button"
+                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <%
+                            Usuario usr = (Usuario) sesion.getAttribute("logueado");
+                            if (usr != null) {
+                                out.print(usr.getUsername().toUpperCase());
+                            } else {
+                                out.print("Usuario");
+                            } %>
+                    </div>
+
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <%
+                            if (usr != null) { %>
+                        <a class="dropdown-item " href="ver_pedidos.jsp">Ver Pedidos</a>
+                        <form method="post" action="cerrarsesion">
+                            <button class="dropdown-item">Cerrar sesión</button>
+                        </form>
+                        <% } else { %>
+                        <a class='dropdown-item ' href='registrar_cliente.jsp'>Registrate</a>
+                        <a class='dropdown-item active' href='login.jsp'>Logueate</a>
+                        <% }%>
+
+                    </div>
+                </div>
+            </div>            
         </header>
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark justify-content-center">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-                    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
-                <ul class="navbar-nav text-center">
-                    <li class="nav-item  mx-4">
-                        <a class="nav-link" href="productos.jsp">Productos</a>
-                    </li>
-                    <li class="nav-item mx-4">
-                        <a class="nav-link" href="carrito.jsp">Carrito</a>
-                    </li>
-                    <li class="nav-item dropdown mx-4">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Usuario
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item active" href="ver_pedidos.jsp">Ver Pedidos</a>
-                            <form method="post" action="cerrarsesion">
-                                <button class="dropdown-item">Cerrar sesión</button>
-                            </form>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </nav>
         <!-- contenido-->
         <%  if (sesion.getAttribute("logueado") != null) { %>
 
-        <div class="container mt-5">
-            <h1 class="mb-3">| Mis Pedidos</h1>
-            <table class="table table-light table-hover table-bordered ">
-                <thead class="thead-dark ">
-                    <tr>
-                        <th>ID</th>
-                        <th>Fecha</th>
-                        <th>Monto Final (S/)</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <%
-                        Pedido p = new Pedido();
-                        Usuario usuario = (Usuario)sesion.getAttribute("logueado");
-                        
-                        if (usuario != null) {
-                            for (Pedido pedido : p.listaPedidosPorIdUsuario(usuario.getId_usuario())) {
-                    %>  
-                    <tr>  
-                        <td class="border"><%= pedido.getId_pedido()%></td>
-                        <td class="border"><%= pedido.getFecha()%></td>
-                        <td class="border"><%= pedido.getMonto_final()%></td>
-                        <td>Ver Detalle</td>
-                    </tr>
-                </tbody>
-            </table>
-            <hr>
-        </div>   
+        <div class="container my-5">
+            <h1 class="mb-4">Mis pedidos</h1>
+            <div class="row align-items-center">
+                <%
+                    Pedido p = new Pedido();
+                    Usuario usuario = (Usuario) sesion.getAttribute("logueado");
 
-        <% } } }%>
+                    if (usuario != null) {
+                        for (Pedido pedido : p.listaPedidosPorIdUsuario(usuario.getId_usuario())) {
+                %>  
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="card border-dark mb-3 w-100">
+                        <div class="card-header bg-dark text-white border-dark">Pedido el <%= pedido.getFecha()%></div>
+                        <div class="card-body text-secondary">
+                            <h5 class="card-title text-success">Detalle del Pedido</h5>
+                            <% 
+                                DetallePedido detallepedido = new DetallePedido();
+                                LinkedList<DetallePedido> ListaDetallePedido = detallepedido.listaDetallePedidosPorIdPedido(pedido.getId_pedido());
+                                if(ListaDetallePedido.size() > 0){
+                                    for(DetallePedido dt: ListaDetallePedido){   
+                                    Producto prod = new Producto();
+                                    Producto producto = prod.buscarProductoById(dt.getId_producto());
+                            %>
+                            <div class="alert alert-light">
+                                <p class="card-text mb-0 text-dark"><%=  producto.getNombre() %></p>
+                                <ul class="m-0">
+                                    <li>Precio: S/ <%=  producto.getPrecio() %></li>
+                                    <li>Cantidad: <%=  dt.getCantidad() %></li>
+                                    <li>Importe: S/ <%=  dt.getCantidad()*producto.getPrecio() %></li>
+                                </ul>
+                            </div>
+                            <% }} %>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <span>Monto Final:</span> <span class="ml-4  text-success" style="font-size: 1.5rem;">S/ <%= pedido.getMonto_final()%></span>
+                        </div>
+                    </div>
+                </div>     
+                <% }}%>
+            </div>
+        </div>       
+        <% } else { %>    
+        <div class="container mt-5">
+            <div class="alert alert-warning" role="alert">
+                Necesitas tener una cuenta
+                <a class='ml-2 mr-2' href='registrar_cliente.jsp'>Registrate</a>
+                o
+                <a class='ml-2 mr-2' href='login.jsp'>Inicia sesión</a>
+            </div>
+        </div>
+        <% }%>
 
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
                 integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"

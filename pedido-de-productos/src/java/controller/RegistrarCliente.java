@@ -7,24 +7,25 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import model.Usuario;
 
-/**
- *
- * @author @cbherit
- */
-@WebServlet(name = "CerrarSesion", urlPatterns = {"/cerrarsesion"})
-public class CerrarSesion extends HttpServlet {
+@WebServlet(name = "RegistrarCliente", urlPatterns = {"/registrarcliente"})
+public class RegistrarCliente extends HttpServlet {
 
+   
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-        HttpSession sesion = request.getSession(true);
-        sesion.setAttribute("logueado", null);
-        sesion.setAttribute("carrito", null);
+        
+        Usuario usr = new Usuario();
+        
+        String username = request.getParameter("usuario");
+        String contrasenia = request.getParameter("password");
+        String celular = request.getParameter("celular");
+        
+        usr.agregaUsuario(username, contrasenia, Integer.parseInt(celular));
+        
         response.sendRedirect("login.jsp");
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -67,3 +68,4 @@ public class CerrarSesion extends HttpServlet {
     }// </editor-fold>
 
 }
+

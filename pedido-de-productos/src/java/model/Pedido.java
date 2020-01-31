@@ -56,7 +56,7 @@ public class Pedido {
     public void conecta() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:3306/bd_donlicor";
+            String url = "jdbc:mysql://localhost:3306/bd_beeru";
             String login = "root";
             String pass = "12345678";
             this.conexion = DriverManager.getConnection(url, login, pass);
@@ -113,20 +113,25 @@ public class Pedido {
         return null;
     }
 
-    public void agregaPedido(Integer id_usuario, Date fecha, Double monto_final) {
+    public Integer agregaPedido(Integer id_usuario, Date fecha, Double monto_final) {
         try {
             conecta();
             String query = "insert into Pedido(id_usuario,fecha,monto_final) values (?,?,?)";
-            PreparedStatement sentencia = conexion.prepareStatement(query);
+            PreparedStatement sentencia = conexion.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
             sentencia.setInt(1, id_usuario);
             sentencia.setDate(2, fechaPedido(fecha));
             sentencia.setDouble(3, monto_final);
             sentencia.executeUpdate();
+            ResultSet rs = sentencia.getGeneratedKeys();
+            if (rs != null && rs.next() ) {
+                return  rs.getInt(1);
+            }
             sentencia.close();
             conexion.close();
         } catch (Exception ex) {
             System.out.println("Problemas ... ");
         }
+        return -1;
     }
 
     private java.sql.Date fechaPedido(Date fecha) {

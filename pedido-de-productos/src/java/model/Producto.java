@@ -55,7 +55,7 @@ public class Producto {
     public void conecta() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:3306/bd_donlicor";
+            String url = "jdbc:mysql://localhost:3306/bd_beeru";
             String login = "root";
             String pass = "12345678";
             this.conexion = DriverManager.getConnection(url, login, pass);
