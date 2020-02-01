@@ -73,7 +73,7 @@
 
         <div class="container my-5">
             <h1 class="mb-4">Mis pedidos</h1>
-            <div class="row align-items-center">
+            <div class="row">
                 <%
                     Pedido p = new Pedido();
                     Usuario usuario = (Usuario) sesion.getAttribute("logueado");
